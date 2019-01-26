@@ -45,7 +45,11 @@ public class BaseRepositoryImpl<T,ID extends Serializable> extends SimpleJpaRepo
     // 只取第一行结果
     @Override
     public Map<String, Object> mapBySQL(String sql) {
-        return toListMap(sql).get(0);
+        List<Map<String, Object>> maps = toListMap(sql);
+        if (maps.size() == 0) {
+            return null;
+        }
+        return maps.get(0);
     }
 
     // 分页
